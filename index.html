@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CTO East</title>
+<style>
+:root{
+--bg:#000;--ink:#E8EAE8;--dim:#8FA399;
+--jade:#00FF7F;--luminous:#00FFC2;--resolve:#7CFF9B;--violet:#9B7CFF;
+--glass:rgba(10,16,13,.56);--line:rgba(0,255,127,.16);
+--r:22px;--col:min(560px,calc(100vw - 32px));
+--mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+#sky{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+#film{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;display:none;background:#000}
+#film.on{display:block}
+#grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;
+background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px);background-size:3px 3px;mix-blend-mode:overlay}
+#veil{position:fixed;inset:0;z-index:1;pointer-events:none;
+background:radial-gradient(120% 80% at 50% 50%,transparent 38%,rgba(0,0,0,.72) 100%)}
+main{position:relative;z-index:2}
+section{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:14vh 16px}
+.glass{width:var(--col);margin:0 auto;padding:26px 24px;border-radius:var(--r);
+background:var(--glass);border:1px solid var(--line);
+box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 24px 60px rgba(0,0,0,.6);
+-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+text-align:center;opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.glass.in{opacity:1;transform:none}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--jade);margin:0 0 14px}
+h1{font-size:clamp(34px,9vw,60px);line-height:1.02;letter-spacing:-.02em;margin:0 0 14px;font-weight:650}
+h2{font-size:clamp(22px,5.4vw,32px);line-height:1.14;letter-spacing:-.01em;margin:0 0 12px;font-weight:600}
+p{font-size:clamp(15px,4vw,17px);line-height:1.62;color:#CBD8D0;margin:0 0 12px}
+p.lead{color:var(--ink)}
+.rule{height:1px;width:72px;margin:18px auto;background:linear-gradient(90deg,transparent,var(--jade),transparent);opacity:.7}
+ul{list-style:none;margin:16px 0 0;padding:0;text-align:left}
+li{position:relative;padding:12px 0 12px 26px;border-top:1px solid rgba(255,255,255,.07);
+font-size:clamp(14px,3.8vw,16px);line-height:1.5;color:#CBD8D0}
+li:first-child{border-top:0}
+li::before{content:"";position:absolute;left:4px;top:19px;width:8px;height:8px;border-radius:50%;
+background:var(--jade);box-shadow:0 0 12px var(--luminous)}
+.cta{display:inline-block;margin-top:20px;padding:15px 30px;border-radius:999px;
+font-weight:620;font-size:16px;text-decoration:none;color:#03140B;
+background:linear-gradient(135deg,var(--resolve),var(--jade));
+box-shadow:0 10px 30px rgba(0,255,127,.22);transition:transform .2s ease,box-shadow .2s ease}
+.cta:active{transform:scale(.97)}
+.sub{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-top:16px}
+.vi{color:var(--violet)}
+#bar{position:fixed;left:0;top:0;height:2px;width:0%;z-index:4;
+background:linear-gradient(90deg,var(--violet),var(--jade),var(--luminous))}
+#beat{position:fixed;left:16px;top:calc(14px + env(safe-area-inset-top));z-index:4;
+font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(190,210,200,.72);padding:6px 12px;border-radius:999px;background:rgba(6,10,8,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(120,200,160,.14);pointer-events:none}
+@media (prefers-reduced-motion:reduce){.glass{opacity:1;transform:none;transition:none}}
+</style>
+<style id="bk-css">.bk{display:flex;flex-direction:column;gap:10px;max-width:460px;margin:18px auto 6px}.bk .cta{display:block;text-align:left;padding:14px 16px;border-radius:14px;line-height:1.35}.bk .cta b{display:block;font-size:15px;letter-spacing:.3px;margin-bottom:3px}.bk .cta span{display:block;font-size:12.5px;opacity:.72;font-weight:400}.bk .cta.alt{background:transparent;border:1px solid currentColor;opacity:.92}</style></head>
+<body>
+<canvas id="sky"></canvas>
+<video id="film" playsinline muted preload="auto" disablepictureinpicture></video>
+<div id="veil"></div>
+<div id="grain"></div>
+<div id="bar"></div>
+<div id="beat">cloud deck</div>
+
+<main>
+<section><div class="glass">
+<p class="tag">CTO East</p>
+<h1>I set up the system.<br>Then the system does the work.</h1>
+<p class="lead">Fractional CTO for companies that are past the point where one more hire fixes it.</p>
+<div class="rule"></div>
+<p>Scroll.</p>
+</div></section>
+
+<section><div class="glass">
+<p class="tag">The problem</p>
+<h2>Most of the work is a process nobody ever wrote down.</h2>
+<p>It lives in somebody's head, in a thread, in a spreadsheet three people can open. It works until that person is out, and then it does not.</p>
+</div></section>
+
+<section><div class="glass">
+<p class="tag">What I do</p>
+<h2>Write it down. Then take the hands off it.</h2>
+<p>I map how the work actually moves through your company, build the system that runs it, and hand you something that keeps running when nobody is watching it.</p>
+<ul>
+<li>Map the real process, not the one on the org chart</li>
+<li>Build it, in your tools, with your data</li>
+<li>Automate the parts that never needed a person</li>
+<li>Hand it over with the map, so you own it</li>
+</ul>
+</div></section>
+
+<section><div class="glass">
+<p class="tag">The standard</p>
+<h2>Built to the strictest room I work in.</h2>
+<p>I build medical grade software in collaboration with a fintech company, so the bar for correctness is already set higher than most businesses need. Everything else I build is held to that same bar.</p>
+<p class="vi">Design is not a layer on top. It is how you can tell the thing was built by someone who cared.</p>
+</div></section>
+
+<section><div class="glass">
+<p class="tag">Start here</p>
+<h2>One call. I tell you what I would build.</h2>
+<p>Bring the part of the business that keeps breaking. You leave the call knowing what the system would look like and what it takes to stand it up.</p>
+<div class="bk"><a class="cta" href="https://cal.com/ctoeast/intro"><b>Free intro</b><span>15 minutes. What you need, and whether I am the right call.</span></a><a class="cta alt" href="https://cal.com/ctoeast/session-30"><b>Strategy session &middot; $111</b><span>30 minutes on one problem. You leave with the shape of the fix.</span></a><a class="cta alt" href="https://cal.com/ctoeast/session-60"><b>Working session &middot; $222</b><span>60 minutes, hands on, we build the first piece together.</span></a></div><p class="sub">Paid sessions are invoiced from xlrd.org after booking.</p>
+<p class="sub">CTO East &middot; a DBA of EAST ALLEN LLC</p>
+</div></section>
+</main>
+
+<script>
+(function(){
+var cv=document.getElementById('sky'),gl=cv.getContext('webgl',{antialias:false,alpha:false,powerPreference:'low-power'});
+var bar=document.getElementById('bar'),beatEl=document.getElementById('beat');
+var NAMES=['cloud deck','city, from above','the tunnel','the rise','watched'];
+if(!gl){cv.style.display='none';document.querySelectorAll('.glass').forEach(function(g){g.classList.add('in')});return}
+
+var VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+var FS=[
+'precision highp float;',
+'uniform vec2 R;uniform float T;uniform float P;',
+'float h21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}',
+'float h11(float p){return fract(sin(p*78.233)*43758.5453);}',
+'float n3(vec3 x){vec3 i=floor(x),f=fract(x);f=f*f*(3.-2.*f);',
+' float n=i.x+i.y*57.+i.z*113.;',
+' float a=h11(n),b=h11(n+1.),c=h11(n+57.),d=h11(n+58.);',
+' float e=h11(n+113.),g=h11(n+114.),p=h11(n+170.),q=h11(n+171.);',
+' return mix(mix(mix(a,b,f.x),mix(c,d,f.x),f.y),mix(mix(e,g,f.x),mix(p,q,f.x),f.y),f.z);}',
+'float fbm(vec3 x){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n3(x);x*=2.07;a*=.5;}return v;}',
+
+// beat 0: volumetric cloud deck, the camera sinking through it
+'vec3 clouds(vec2 uv,float t,float k){',
+' vec3 ro=vec3(0.,.40-k*1.15,t*.50);',
+' vec3 rd=normalize(vec3(uv,1.25));',
+' vec3 sun=normalize(vec3(.45,.30,.84));',
+' vec3 col=mix(vec3(.006,.016,.018),vec3(.016,.048,.044),clamp(uv.y+.55,0.,1.));',
+' col+=vec3(.0,.44,.31)*pow(max(dot(rd,sun),0.),40.)*.55;',
+' float al=0.;',
+' for(int i=0;i<34;i++){',
+'  if(al>.96)break;',
+'  float s=.25+float(i)*.16;vec3 q=ro+rd*s;',
+'  float slab=1.-abs(q.y-.10)/1.30;',
+'  if(slab<=0.)continue;',
+'  float d=(fbm(q*1.15+vec3(0.,0.,t*.12))-.50)*slab*2.6;',
+'  if(d<=0.)continue;',
+'  float den=clamp(d,0.,1.)*.40;',
+'  float lt=clamp((fbm((q+sun*.45)*1.15)-.50)*2.6,0.,1.);',
+'  vec3 cc=mix(vec3(.03,.08,.07),vec3(.60,1.,.86),1.-exp(-lt*2.4));',
+'  col+=cc*den*(1.-al);al+=den*(1.-al);}',
+' return col;}',
+
+// beat 1: city grid seen from above, drone push in
+'vec3 city(vec2 uv,float t,float k){',
+' vec3 col=vec3(.004,.012,.012);',
+' float tilt=.62-k*.30;',
+' vec2 q=vec2(uv.x,(uv.y+tilt));',
+' if(q.y<=.012)return col+vec3(.0,.03,.05)*(1.+uv.y);',
+' float z=1.1/q.y;',
+' vec2 g=vec2(q.x*z*1.6,z-t*2.1-k*22.);',
+' vec2 cell=floor(g*.62);',
+' vec2 f=fract(g*.62);',
+' float hh=h21(cell);',
+' float road=smoothstep(.045,.0,min(f.x,f.y))+smoothstep(.955,1.,max(f.x,f.y));',
+' float lit=step(.42,h21(cell+7.1));',
+' float win=step(.56,h21(floor(g*7.3)))*lit;',
+' float fog=exp(-z*.055);',
+' col+=vec3(.0,.46,.30)*road*.5*fog;',
+' col+=vec3(.55,1.,.80)*win*.16*fog*(.3+hh);',
+' col+=vec3(.42,.32,1.)*step(.93,h21(cell+19.))*.14*fog;',
+' col*=smoothstep(.0,.13,q.y);',
+' return col;}',
+
+// beat 2: the tunnel
+'vec3 tunnel(vec2 uv,float t,float k){',
+' float r=length(uv)+.0001;float a=atan(uv.y,uv.x);',
+' float z=.52/r+t*1.7+k*11.;',
+' vec3 col=vec3(.005,.016,.015);',
+' float ring=smoothstep(.86,1.,sin(z*3.14159*2.)*.5+.5);',
+' float ribs=smoothstep(.72,1.,sin(a*14.+z*.6)*.5+.5);',
+' float fog=smoothstep(1.25,.06,r);',
+' col+=vec3(.0,.52,.34)*ring*fog*.85;',
+' col+=vec3(.30,.24,.85)*ribs*fog*.16;',
+' col+=vec3(.55,1.,.84)*pow(smoothstep(.34,.0,r),2.4)*.55;',
+' return col;}',
+
+// beat 3: the rise, escalator slats
+'vec3 rise(vec2 uv,float t,float k){',
+' vec3 col=vec3(.004,.013,.013);',
+' float sl=uv.y*1.5-uv.x*.78;',
+' float step1=fract(sl*7.5-t*.72-k*5.);',
+' float edge=smoothstep(.90,1.,step1);',
+' float side=smoothstep(.56,.30,abs(uv.x));',
+' col+=vec3(.0,.48,.32)*edge*side*.8;',
+' float rail=smoothstep(.013,.0,abs(abs(uv.x)-.50+uv.y*.10));',
+' col+=vec3(.55,1.,.84)*rail*.4;',
+' col+=vec3(.36,.28,.92)*smoothstep(.9,.0,length(uv-vec2(0.,.62)))*.12;',
+' col*=.45+.55*side;',
+' return col;}',
+
+// beat 4: watched
+'vec3 watched(vec2 uv,float t,float k){',
+' vec3 col=vec3(.006,.016,.014);',
+' vec2 g=abs(fract(uv*7.)-.5);',
+' float grid=smoothstep(.485,.5,max(g.x,g.y));',
+' col+=vec3(.0,.40,.27)*grid*.16;',
+' float scan=smoothstep(.75,1.,sin((uv.y+t*.12)*240.)*.5+.5);',
+' col+=vec3(.0,.3,.22)*scan*.06;',
+' float sweep=smoothstep(.055,.0,abs(uv.y-(.6-fract(t*.16)*1.2)));',
+' col+=vec3(.42,1.,.74)*sweep*.22;',
+' float cr=smoothstep(.004,.0,abs(uv.x))+smoothstep(.004,.0,abs(uv.y));',
+' col+=vec3(.5,1.,.8)*cr*.10*smoothstep(.62,.1,length(uv));',
+' float bx=max(abs(uv.x)-.30,abs(uv.y)-.22);',
+' col+=vec3(.55,1.,.84)*smoothstep(.006,.0,abs(bx))*.30;',
+' col*=1.-smoothstep(.45,1.15,length(uv))*.85;',
+' return col;}',
+
+'void main(){',
+' vec2 uv=(gl_FragCoord.xy-.5*R)/R.y;',
+' float seg=clamp(P,0.,.9999)*5.;',
+' int b=int(floor(seg));float k=fract(seg);',
+' vec3 col;',
+' if(b==0)col=clouds(uv,T,k);',
+' else if(b==1)col=city(uv,T,k);',
+' else if(b==2)col=tunnel(uv,T,k);',
+' else if(b==3)col=rise(uv,T,k);',
+' else col=watched(uv,T,k);',
+' if(b>0)col=mix(col*.42,col,smoothstep(.0,.07,k));',
+' col+=vec3(.10,.42,.30)*exp(-k*34.)*(b>0?1.:0.);',
+' col+=(h21(gl_FragCoord.xy+T)-.5)*.022;',
+' col=pow(max(col,0.),vec3(.88));',
+' gl_FragColor=vec4(col,1.);}'
+].join('\n');
+
+function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);
+ if(!gl.getShaderParameter(o,gl.COMPILE_STATUS)){console.warn(gl.getShaderInfoLog(o));return null}return o}
+var vs=sh(gl.VERTEX_SHADER,VS),fs=sh(gl.FRAGMENT_SHADER,FS);
+if(!vs||!fs){cv.style.display='none';document.querySelectorAll('.glass').forEach(function(g){g.classList.add('in')});return}
+var pr=gl.createProgram();gl.attachShader(pr,vs);gl.attachShader(pr,fs);gl.linkProgram(pr);gl.useProgram(pr);
+var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+var loc=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+var uR=gl.getUniformLocation(pr,'R'),uT=gl.getUniformLocation(pr,'T'),uP=gl.getUniformLocation(pr,'P');
+
+var DPR=Math.min(window.devicePixelRatio||1,1.5);
+function size(){var w=cv.clientWidth=window.innerWidth,h=cv.clientHeight=window.innerHeight;
+ cv.width=Math.max(1,Math.floor(w*DPR*.72));cv.height=Math.max(1,Math.floor(h*DPR*.72));
+ gl.viewport(0,0,cv.width,cv.height);gl.uniform2f(uR,cv.width,cv.height)}
+size();window.addEventListener('resize',size,{passive:true});
+
+var prog=0,target=0;
+function onScroll(){var m=document.documentElement.scrollHeight-window.innerHeight;
+ target=m>0?Math.min(1,Math.max(0,window.scrollY/m)):0;
+ bar.style.width=(target*100).toFixed(2)+'%';
+ var i=Math.min(4,Math.floor(target*5));if(beatEl.textContent!==NAMES[i])beatEl.textContent=NAMES[i]}
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+var t0=performance.now();
+function frame(now){prog+=(target-prog)*.085;
+ gl.uniform1f(uT,(now-t0)*.001);gl.uniform1f(uP,prog);
+ gl.drawArrays(gl.TRIANGLES,0,3);requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+
+
+/* The Muse scroll-scrub background. FILM_SRC stays empty until the real clip lands; while it is
+   empty the raymarched shader carries the page, so there is no second build when the video arrives.
+   Set FILM_SRC, the video takes over and the canvas stands down. */
+var FILM_BASE='https://github.com/xlrdtech/source-life-releases/releases/download/ctoeast-bg-v1/';
+/* Two cuts of the same film, same grade, both all-intra so the scroll scrub stays smooth.
+   Portrait viewports get the 9:16; landscape gets Muse's 16:9, framed for wide rather than
+   cropped into it. Chosen once at load: a mid-session rotate keeps the cut it started with,
+   which is the right trade against re-downloading 13 MB on an orientation change. */
+var FILM_SRC=FILM_BASE+(innerWidth>innerHeight?'cto-16x9-web.mp4':'cto-9x16-web.mp4');
+(function(){
+ var v=document.getElementById('film');if(!v||!FILM_SRC)return;
+ var ready=false,want=0,cur=0,raf2=0;
+ v.src=FILM_SRC;
+ v.addEventListener('loadedmetadata',function(){ready=!!(v.duration&&isFinite(v.duration));if(ready){v.classList.add('on');cv.style.opacity='0';tick()}});
+ v.addEventListener('error',function(){v.classList.remove('on');cv.style.opacity='1'});
+ function tick(){
+  if(!ready)return;
+  var m=document.documentElement.scrollHeight-window.innerHeight;
+  want=(m>0?Math.min(1,Math.max(0,window.scrollY/m)):0)*v.duration;
+  cur+=(want-cur)*0.12;
+  if(Math.abs(want-cur)<0.004)cur=want;
+  try{v.currentTime=cur}catch(_){}
+  raf2=requestAnimationFrame(tick);
+ }
+ window.addEventListener('scroll',function(){if(ready&&!raf2)raf2=requestAnimationFrame(tick)},{passive:true});
+})();
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.22});
+document.querySelectorAll('.glass').forEach(function(g){io.observe(g)});
+})();
+</script>
+</body>
+</html>
